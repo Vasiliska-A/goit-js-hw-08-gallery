@@ -89,7 +89,6 @@ const lightboxButtonClose = document.querySelector(
 );
 const lightboxContent = document.querySelector(".lightbox__content");
 const lightboxImage = document.querySelector(".lightbox__image");
-const mainEl = document.querySelector("body");
 
 const galleryListItems = galleryItems
   .map(
@@ -129,3 +128,4 @@ function onCloseHandler(event) {
 
 galleryList.addEventListener("click", onClickHandler);
 lightboxButtonClose.addEventListener("click", onCloseHandler);
+lightboxOverlay.addEventListener("click", closeOnOverlay);
