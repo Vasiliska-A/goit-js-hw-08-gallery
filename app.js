@@ -92,16 +92,18 @@ const lightboxImage = document.querySelector(".lightbox__image");
 
 const galleryListItems = galleryItems
   .map(
-    ({ preview, original, description }) => `<li class="gallery__item">
+    ({ preview, original, description }, index) => `<li  class="gallery__item">
   <a
     class="gallery__link"
     href= "${original}"
+   
   >
     <img
       class="gallery__image"
       src= "${preview}"
       data-source= "${original}"
       alt="${description}"
+       data-index=${index}
     />
   </a>
 </li>`
@@ -115,8 +117,10 @@ function onClickHandler(event) {
 
   if (event.target.classList.contains("gallery__image")) {
     lightbox.classList.add("is-open");
+
     lightboxImage.src = event.target.src;
     lightboxImage.alt = event.target.alt;
+    lightboxImage.index = event.target.index;
   }
 }
 
@@ -126,6 +130,21 @@ function onCloseHandler(event) {
   }
 }
 
+function modalClose(event) {
+  if (event.keyCode === 27) {
+    lightbox.classList.remove("is-open");
+  }
+}
+
+function closeOnOverlay(event) {
+  if (event.target !== lightboxContent) {
+    lightbox.classList.remove("is-open");
+  }
+}
+
+let currentIndex = 0;
+
 galleryList.addEventListener("click", onClickHandler);
 lightboxButtonClose.addEventListener("click", onCloseHandler);
+document.addEventListener("keydown", modalClose);
 lightboxOverlay.addEventListener("click", closeOnOverlay);
