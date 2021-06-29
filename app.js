@@ -118,31 +118,38 @@ function onClickHandler(event) {
   if (event.target.classList.contains("gallery__image")) {
     lightbox.classList.add("is-open");
 
-    lightboxImage.src = event.target.src;
-    lightboxImage.alt = event.target.alt;
-    lightboxImage.index = event.target.index;
+    const source = event.target.dataset.source;
+    const alt = event.target.getAttribute("alt");
+    lightboxImage.setAttribute("src", source);
+    lightboxImage.setAttribute("alt", alt);
   }
 }
 
 function onCloseHandler(event) {
   if (event.target.dataset.action) {
     lightbox.classList.remove("is-open");
+    lightboxImage.setAttribute("src", "");
+    lightboxImage.setAttribute("alt", "");
   }
 }
 
 function modalClose(event) {
   if (event.keyCode === 27) {
     lightbox.classList.remove("is-open");
+    lightbox.classList.remove("is-open");
+    lightboxImage.setAttribute("src", "");
+    lightboxImage.setAttribute("alt", "");
   }
 }
 
 function closeOnOverlay(event) {
   if (event.target !== lightboxContent) {
     lightbox.classList.remove("is-open");
+    lightbox.classList.remove("is-open");
+    lightboxImage.setAttribute("src", "");
+    lightboxImage.setAttribute("alt", "");
   }
 }
-
-let currentIndex = 0;
 
 galleryList.addEventListener("click", onClickHandler);
 lightboxButtonClose.addEventListener("click", onCloseHandler);
